@@ -1,3 +1,5 @@
+import os
+
 import streamlit as st
 from allennlp.predictors.predictor import Predictor
 import allennlp_models.rc
@@ -85,15 +87,15 @@ if st.button("Assess Comprehensibility", key=None):
     if score < qa_threshold:
         
         # Display the wrong answers
-        st.error('Probable comprehensibility issue ⚠️  \n\n\n "Transformers" model answer: %s, %0.2f \n\n "BiDAF" model answer: %s, %0.2f' %
-                (hg_answer, answer_similarities[0], allen_answer, answer_similarities[1]))
+        st.error('Probable comprehensibility issue ⚠️  \n\n\n "Transformers" model answer: %s \n\n "BiDAF" model answer: %s' %
+                (hg_answer, allen_answer))
     
     else:
         
         # Display the successful answer
         st.balloons()
-        st.success('No comprehensibility issue detected ✔️  \n\n\n "Transformers" model answer: %s, %0.2f \n\n "BiDAF" model answer: %s, %0.2f' %
-                (hg_answer, answer_similarities[0], allen_answer, answer_similarities[1]))
+        st.success('No comprehensibility issue detected ✔️  \n\n\n "Transformers" model answer: %s \n\n "BiDAF" model answer: %s' %
+                (hg_answer, allen_answer))
 
 
 #------------------
