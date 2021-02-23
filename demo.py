@@ -25,6 +25,7 @@ qa_threshold = 0.6
 def initialize_models():
     
     # Hugging Face transformers QA model
+    os.environ["TOKENIZERS_PARALLELISM"] = "false"
     hg_comp = pipeline('question-answering')
 
     # AllenNLP BiDAF model
@@ -38,11 +39,9 @@ def initialize_models():
 hg_comp, allen_comp, sentence_trans = initialize_models()
 
 # LASER embeddings
-
-os.system("python -m laserembeddings download-models")
-
 @st.cache(allow_output_mutation=True)
 def initialize_laser():
+    os.system("python -m laserembeddings download-models")
     laser = Laser()
     return laser
 
